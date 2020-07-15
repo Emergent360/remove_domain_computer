@@ -1,6 +1,6 @@
 ---
 # tasks file for update_domain_computer
-- name: Query the domain state
+- name: update the domain state
   win_domain_membership:
     state: "{{ ad_computer_state }}"
     domain_admin_user: "{{ ad_domain_username }}"
