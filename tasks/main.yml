@@ -1,0 +1,29 @@
+---
+# tasks file for update_domain_computer
+- name: Set DNS lookup addresses
+  win_dns_client:
+    adapter_names: '*'
+    ipv4_addresses: []
+  when: ad_computer_state == "workgroup"
+  
+- name: Add empire_admin to RDU group
+  win_group_membership:
+    name: Remote Desktop Users
+    members:
+      - empire\empire_admin
+    state: absent
+  when: ad_computer_state == "workgroup"
+
+- name: add computer to domain
+  win_domain_membership:
+    state: "{{ ad_computer_state }}"
+    workgroup_name: "WORKGROUP"
+    domain_ou_path: "{{ ad_ou_path }}"
+    domain_admin_user: "{{ ad_domain_username }}"
+    domain_admin_password: "{{ ad_domain_password }}"
+    dns_domain_name: "{{ ad_domain_name }}"
+  register: domain_state
+
+- win_reboot:
+  when: domain_state.reboot_required
+
