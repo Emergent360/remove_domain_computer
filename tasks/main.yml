@@ -2,6 +2,7 @@
 # tasks file for update_domain_computer
 - name: Query the domain state
   win_domain_membership:
+    state: "{{ ad_domain_state }}"
     domain_admin_user: "{{ ad_domain_username }}"
     domain_admin_password: "{{ ad_domain_password }}"
     dns_domain_name: "{{ ad_domain_name }}"
