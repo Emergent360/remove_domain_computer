@@ -3,7 +3,7 @@
 - name: update the domain state
   win_domain_computer:
     state: present
-    name: "{{ ansible_nodename }}"
+    name: "{{ ansible_facts['nodename'] }}"
     dns_hostname: 
     ou: "{{ ad_ou_path }}"
     domain_admin_user: "{{ ad_domain_username }}"
