@@ -1,23 +1,16 @@
 ---
 # tasks file for update_domain_computer
 - name: update the domain state
-  win_domain_membership:
-    state: "{{ ad_computer_state }}"
+  win_domain_computer:
+    state: present
+    name: "{{ ansible_nodename }}"
+    dns_hostname: 
+    ou: "{{ ad_ou_path }}"
     domain_admin_user: "{{ ad_domain_username }}"
     domain_admin_password: "{{ ad_domain_password }}"
     dns_domain_name: "{{ ad_domain_name }}"
   register: domain_state
-  when: ad_computer_state == "domain"
+  when: ad_computer_state == "present"
 
 - debug:
     msg: "{{ domain_state }}"
-
-- name: remove from the domain
-  win_domain_membership:
-    state: "{{ ad_computer_state }}"
-    workgroup_name: "WORKGROUP"
-    domain_admin_user: "{{ ad_domain_username }}"
-    domain_admin_password: "{{ ad_domain_password }}"
-    dns_domain_name: "{{ ad_domain_name }}"
-  register: domain_state
-  when: ad_computer_state == "workgroup"
