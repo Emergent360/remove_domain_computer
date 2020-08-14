@@ -1,5 +1,9 @@
 ---
 # tasks file for update_domain_computer
+- debug:
+    msg: "{{ ansible_facts }}"
+
+
 - name: update the domain state
   win_domain_computer:
     state: present
