@@ -12,7 +12,7 @@
     ou: "{{ ad_ou_path }}"
     domain_username: "{{ ad_domain_username }}"
     domain_password: "{{ ad_domain_password }}"
-    domain_server: "{{ ad_domain_name }}"
+    domain_server: "{{ ad_domain_server }}"
   register: domain_state
   when: ad_computer_state == "present"
 
