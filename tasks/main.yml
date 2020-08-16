@@ -1,20 +1,13 @@
 ---
 # tasks file for remove_domain_computer
-- debug:
-    msg: "{{ hostvars }}"
-
-
 - name: update the domain state
-  win_domain_computer:
-    state: present
-    name: ""
-    dns_hostname: 
-    ou: "{{ ad_ou_path }}"
-    domain_username: "{{ ad_domain_username }}"
-    domain_password: "{{ ad_domain_password }}"
-    domain_server: "{{ ad_domain_server }}"
+  win_domain_membership:
+    state: "{{ ad_computer_state }}"
+    domain_ou_path: "{{ ad_ou_path }}"
+    domain_admin_user: "{{ ad_domain_username }}"
+    domain_admin_password: "{{ ad_domain_password }}"
+    dns_domain_name: "{{ ad_domain_server }}"
   register: domain_state
-  when: ad_computer_state == "present"
 
-- debug:
-    msg: "{{ domain_state }}"
+- win_reboot:
+  when: domain_state.reboot_required
