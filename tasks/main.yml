@@ -9,5 +9,5 @@
     dns_domain_name: "{{ ad_domain_server }}"
   register: domain_state
 
-- win_reboot:
-  when: domain_state.reboot_required
+#- win_reboot:
+#  when: domain_state.reboot_required
