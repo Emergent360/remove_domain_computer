@@ -1,5 +1,5 @@
 ---
-# tasks file for update_domain_computer
+# tasks file for remove_domain_computer
 - debug:
     msg: "{{ hostvars }}"
 

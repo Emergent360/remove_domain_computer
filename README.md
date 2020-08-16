@@ -1,1 +1,1 @@
-# update_domain_computer
+# remove_domain_computer
